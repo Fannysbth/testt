@@ -28,186 +28,222 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.lbl_NamaKaryawan = new System.Windows.Forms.Label();
-            this.lbl_Departemen = new System.Windows.Forms.Label();
-            this.lbl_KaryawanTerpilih = new System.Windows.Forms.Label();
-            this.dgv_karyawan = new System.Windows.Forms.DataGridView();
-            this.comboBox1 = new System.Windows.Forms.ComboBox();
-            this.pb_Logo = new System.Windows.Forms.PictureBox();
-            this.textBox1 = new System.Windows.Forms.TextBox();
-            this.info_dep = new System.Windows.Forms.Label();
-            this.btn_Insert = new System.Windows.Forms.Button();
-            this.btn_Edit = new System.Windows.Forms.Button();
-            this.btn_Delete = new System.Windows.Forms.Button();
-            this.btn_Load = new System.Windows.Forms.Button();
-            this.label1 = new System.Windows.Forms.Label();
-            this.label2 = new System.Windows.Forms.Label();
-            ((System.ComponentModel.ISupportInitialize)(this.dgv_karyawan)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pb_Logo)).BeginInit();
-            this.SuspendLayout();
+            lbl_NamaKaryawan = new Label();
+            lbl_Departemen = new Label();
+            lbl_KaryawanTerpilih = new Label();
+            lbl_Jabatan = new Label();
+            dgv_karyawan = new DataGridView();
+            comboBox1 = new ComboBox();
+            comboBoxJabatan = new ComboBox();
+            pb_Logo = new PictureBox();
+            textBox1 = new TextBox();
+            info_dep = new Label();
+            btn_Insert = new Button();
+            btn_Edit = new Button();
+            btn_Delete = new Button();
+            btn_Load = new Button();
+            label1 = new Label();
+            label2 = new Label();
+            ((System.ComponentModel.ISupportInitialize)dgv_karyawan).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)pb_Logo).BeginInit();
+            SuspendLayout();
             // 
             // lbl_NamaKaryawan
             // 
-            this.lbl_NamaKaryawan.AutoSize = true;
-            this.lbl_NamaKaryawan.Location = new System.Drawing.Point(41, 96);
-            this.lbl_NamaKaryawan.Name = "lbl_NamaKaryawan";
-            this.lbl_NamaKaryawan.Size = new System.Drawing.Size(97, 13);
-            this.lbl_NamaKaryawan.TabIndex = 0;
-            this.lbl_NamaKaryawan.Text = "Nama Karyawan   :";
+            lbl_NamaKaryawan.AutoSize = true;
+            lbl_NamaKaryawan.Location = new Point(68, 185);
+            lbl_NamaKaryawan.Margin = new Padding(5, 0, 5, 0);
+            lbl_NamaKaryawan.Name = "lbl_NamaKaryawan";
+            lbl_NamaKaryawan.Size = new Size(158, 25);
+            lbl_NamaKaryawan.TabIndex = 0;
+            lbl_NamaKaryawan.Text = "Nama Karyawan   :";
             // 
             // lbl_Departemen
             // 
-            this.lbl_Departemen.AutoSize = true;
-            this.lbl_Departemen.Location = new System.Drawing.Point(41, 134);
-            this.lbl_Departemen.Name = "lbl_Departemen";
-            this.lbl_Departemen.Size = new System.Drawing.Size(95, 13);
-            this.lbl_Departemen.TabIndex = 1;
-            this.lbl_Departemen.Text = "Dep. Karyawan    :";
+            lbl_Departemen.AutoSize = true;
+            lbl_Departemen.Location = new Point(68, 258);
+            lbl_Departemen.Margin = new Padding(5, 0, 5, 0);
+            lbl_Departemen.Name = "lbl_Departemen";
+            lbl_Departemen.Size = new Size(153, 25);
+            lbl_Departemen.TabIndex = 1;
+            lbl_Departemen.Text = "Dep. Karyawan    :";
             // 
             // lbl_KaryawanTerpilih
             // 
-            this.lbl_KaryawanTerpilih.AutoSize = true;
-            this.lbl_KaryawanTerpilih.Location = new System.Drawing.Point(627, 225);
-            this.lbl_KaryawanTerpilih.Name = "lbl_KaryawanTerpilih";
-            this.lbl_KaryawanTerpilih.Size = new System.Drawing.Size(20, 13);
-            this.lbl_KaryawanTerpilih.TabIndex = 2;
-            this.lbl_KaryawanTerpilih.Text = "\" \"";
+            lbl_KaryawanTerpilih.AutoSize = true;
+            lbl_KaryawanTerpilih.Location = new Point(1045, 433);
+            lbl_KaryawanTerpilih.Margin = new Padding(5, 0, 5, 0);
+            lbl_KaryawanTerpilih.Name = "lbl_KaryawanTerpilih";
+            lbl_KaryawanTerpilih.Size = new Size(31, 25);
+            lbl_KaryawanTerpilih.TabIndex = 2;
+            lbl_KaryawanTerpilih.Text = "\" \"";
+            // 
+            // lbl_Jabatan
+            // 
+            lbl_Jabatan.AutoSize = true;
+            lbl_Jabatan.Location = new Point(68, 331);
+            lbl_Jabatan.Margin = new Padding(5, 0, 5, 0);
+            lbl_Jabatan.Name = "lbl_Jabatan";
+            lbl_Jabatan.Size = new Size(161, 25);
+            lbl_Jabatan.TabIndex = 2;
+            lbl_Jabatan.Text = "Jabatan Karyawan :";
             // 
             // dgv_karyawan
             // 
-            this.dgv_karyawan.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dgv_karyawan.Location = new System.Drawing.Point(44, 255);
-            this.dgv_karyawan.Name = "dgv_karyawan";
-            this.dgv_karyawan.Size = new System.Drawing.Size(691, 150);
-            this.dgv_karyawan.TabIndex = 3;
-            this.dgv_karyawan.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgv_karyawan_CellContentClick);
+            dgv_karyawan.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            dgv_karyawan.Location = new Point(73, 490);
+            dgv_karyawan.Margin = new Padding(5, 6, 5, 6);
+            dgv_karyawan.Name = "dgv_karyawan";
+            dgv_karyawan.RowHeadersWidth = 62;
+            dgv_karyawan.Size = new Size(1152, 288);
+            dgv_karyawan.TabIndex = 3;
+            dgv_karyawan.CellContentClick += dgv_karyawan_CellContentClick;
             // 
             // comboBox1
             // 
-            this.comboBox1.FormattingEnabled = true;
-            this.comboBox1.Location = new System.Drawing.Point(160, 126);
-            this.comboBox1.Name = "comboBox1";
-            this.comboBox1.Size = new System.Drawing.Size(236, 21);
-            this.comboBox1.TabIndex = 4;
-            this.comboBox1.SelectedIndexChanged += new System.EventHandler(this.comboBox1_SelectedIndexChanged);
+            comboBox1.FormattingEnabled = true;
+            comboBox1.Location = new Point(267, 255);
+            comboBox1.Margin = new Padding(5, 6, 5, 6);
+            comboBox1.Name = "comboBox1";
+            comboBox1.Size = new Size(391, 33);
+            comboBox1.TabIndex = 4;
+            // 
+            // comboBoxJabatan
+            // 
+            comboBoxJabatan.Location = new Point(267, 323);
+            comboBoxJabatan.Margin = new Padding(5, 6, 5, 6);
+            comboBoxJabatan.Name = "comboBoxJabatan";
+            comboBoxJabatan.Size = new Size(391, 33);
+            comboBoxJabatan.TabIndex = 14;
             // 
             // pb_Logo
             // 
-            this.pb_Logo.BackColor = System.Drawing.Color.Azure;
-            this.pb_Logo.Location = new System.Drawing.Point(19, 12);
-            this.pb_Logo.Name = "pb_Logo";
-            this.pb_Logo.Size = new System.Drawing.Size(100, 59);
-            this.pb_Logo.TabIndex = 5;
-            this.pb_Logo.TabStop = false;
+            pb_Logo.BackColor = Color.Azure;
+            pb_Logo.Location = new Point(32, 23);
+            pb_Logo.Margin = new Padding(5, 6, 5, 6);
+            pb_Logo.Name = "pb_Logo";
+            pb_Logo.Size = new Size(167, 113);
+            pb_Logo.TabIndex = 5;
+            pb_Logo.TabStop = false;
             // 
             // textBox1
             // 
-            this.textBox1.Location = new System.Drawing.Point(160, 89);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(236, 20);
-            this.textBox1.TabIndex = 6;
-            this.textBox1.TextChanged += new System.EventHandler(this.textBox1_TextChanged);
+            textBox1.Location = new Point(267, 185);
+            textBox1.Margin = new Padding(5, 6, 5, 6);
+            textBox1.Name = "textBox1";
+            textBox1.Size = new Size(391, 31);
+            textBox1.TabIndex = 6;
+            textBox1.TextChanged += textBox1_TextChanged;
             // 
             // info_dep
             // 
-            this.info_dep.AutoSize = true;
-            this.info_dep.Location = new System.Drawing.Point(560, 69);
-            this.info_dep.Name = "info_dep";
-            this.info_dep.Size = new System.Drawing.Size(87, 78);
-            this.info_dep.TabIndex = 7;
-            this.info_dep.Text = "ID Departemen\r\nHR : HR\r\nENG : Engineer\r\nDEV : Developer\r\nPM : Product M\r\nFIN : Fi" +
-    "nance\r\n";
+            info_dep.AutoSize = true;
+            info_dep.Location = new Point(933, 133);
+            info_dep.Margin = new Padding(5, 0, 5, 0);
+            info_dep.Name = "info_dep";
+            info_dep.Size = new Size(140, 150);
+            info_dep.TabIndex = 7;
+            info_dep.Text = "ID Departemen\r\nHR : HR\r\nENG : Engineer\r\nDEV : Developer\r\nPM : Product M\r\nFIN : Finance\r\n";
             // 
             // btn_Insert
             // 
-            this.btn_Insert.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(255)))), ((int)(((byte)(192)))));
-            this.btn_Insert.Location = new System.Drawing.Point(44, 170);
-            this.btn_Insert.Name = "btn_Insert";
-            this.btn_Insert.Size = new System.Drawing.Size(116, 49);
-            this.btn_Insert.TabIndex = 8;
-            this.btn_Insert.Text = "Insert";
-            this.btn_Insert.UseVisualStyleBackColor = false;
-            this.btn_Insert.Click += new System.EventHandler(this.btn_Insert_Click);
+            btn_Insert.BackColor = Color.FromArgb(192, 255, 192);
+            btn_Insert.Location = new Point(73, 384);
+            btn_Insert.Margin = new Padding(5, 6, 5, 6);
+            btn_Insert.Name = "btn_Insert";
+            btn_Insert.Size = new Size(193, 94);
+            btn_Insert.TabIndex = 8;
+            btn_Insert.Text = "Insert";
+            btn_Insert.UseVisualStyleBackColor = false;
+            btn_Insert.Click += btn_Insert_Click;
             // 
             // btn_Edit
             // 
-            this.btn_Edit.BackColor = System.Drawing.Color.PowderBlue;
-            this.btn_Edit.Location = new System.Drawing.Point(199, 170);
-            this.btn_Edit.Name = "btn_Edit";
-            this.btn_Edit.Size = new System.Drawing.Size(109, 49);
-            this.btn_Edit.TabIndex = 9;
-            this.btn_Edit.Text = "Edit";
-            this.btn_Edit.UseVisualStyleBackColor = false;
-            this.btn_Edit.Click += new System.EventHandler(this.btn_Edit_Click);
+            btn_Edit.BackColor = Color.PowderBlue;
+            btn_Edit.Location = new Point(326, 384);
+            btn_Edit.Margin = new Padding(5, 6, 5, 6);
+            btn_Edit.Name = "btn_Edit";
+            btn_Edit.Size = new Size(182, 94);
+            btn_Edit.TabIndex = 9;
+            btn_Edit.Text = "Edit";
+            btn_Edit.UseVisualStyleBackColor = false;
+            btn_Edit.Click += btn_Edit_Click;
             // 
             // btn_Delete
             // 
-            this.btn_Delete.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(192)))), ((int)(((byte)(192)))));
-            this.btn_Delete.Location = new System.Drawing.Point(344, 170);
-            this.btn_Delete.Name = "btn_Delete";
-            this.btn_Delete.Size = new System.Drawing.Size(118, 49);
-            this.btn_Delete.TabIndex = 10;
-            this.btn_Delete.Text = "Delete";
-            this.btn_Delete.UseVisualStyleBackColor = false;
-            this.btn_Delete.Click += new System.EventHandler(this.btn_Delete_Click);
+            btn_Delete.BackColor = Color.FromArgb(255, 192, 192);
+            btn_Delete.Location = new Point(579, 384);
+            btn_Delete.Margin = new Padding(5, 6, 5, 6);
+            btn_Delete.Name = "btn_Delete";
+            btn_Delete.Size = new Size(197, 94);
+            btn_Delete.TabIndex = 10;
+            btn_Delete.Text = "Delete";
+            btn_Delete.UseVisualStyleBackColor = false;
+            btn_Delete.Click += btn_Delete_Click;
             // 
             // btn_Load
             // 
-            this.btn_Load.BackColor = System.Drawing.Color.LightSkyBlue;
-            this.btn_Load.Location = new System.Drawing.Point(621, 420);
-            this.btn_Load.Name = "btn_Load";
-            this.btn_Load.Size = new System.Drawing.Size(114, 27);
-            this.btn_Load.TabIndex = 11;
-            this.btn_Load.Text = "Load Data";
-            this.btn_Load.UseVisualStyleBackColor = false;
+            btn_Load.BackColor = Color.LightSkyBlue;
+            btn_Load.Location = new Point(1035, 808);
+            btn_Load.Margin = new Padding(5, 6, 5, 6);
+            btn_Load.Name = "btn_Load";
+            btn_Load.Size = new Size(190, 52);
+            btn_Load.TabIndex = 11;
+            btn_Load.Text = "Load Data";
+            btn_Load.UseVisualStyleBackColor = false;
             // 
             // label1
             // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(495, 225);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(126, 13);
-            this.label1.TabIndex = 12;
-            this.label1.Text = "ID Karyawan yang dipilih:";
+            label1.AutoSize = true;
+            label1.Location = new Point(825, 433);
+            label1.Margin = new Padding(5, 0, 5, 0);
+            label1.Name = "label1";
+            label1.Size = new Size(211, 25);
+            label1.TabIndex = 12;
+            label1.Text = "ID Karyawan yang dipilih:";
             // 
             // label2
             // 
-            this.label2.AutoSize = true;
-            this.label2.BackColor = System.Drawing.Color.Transparent;
-            this.label2.Font = new System.Drawing.Font("Baskerville Old Face", 14.25F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label2.Location = new System.Drawing.Point(25, 31);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(85, 22);
-            this.label2.TabIndex = 13;
-            this.label2.Text = "LogoKu!";
+            label2.AutoSize = true;
+            label2.BackColor = Color.Transparent;
+            label2.Font = new Font("Baskerville Old Face", 14.25F, FontStyle.Bold | FontStyle.Italic, GraphicsUnit.Point, 0);
+            label2.Location = new Point(42, 60);
+            label2.Margin = new Padding(5, 0, 5, 0);
+            label2.Name = "label2";
+            label2.Size = new Size(125, 34);
+            label2.TabIndex = 13;
+            label2.Text = "LogoKu!";
             // 
             // Form1
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.BackColor = System.Drawing.Color.AliceBlue;
-            this.ClientSize = new System.Drawing.Size(800, 470);
-            this.Controls.Add(this.label2);
-            this.Controls.Add(this.label1);
-            this.Controls.Add(this.btn_Load);
-            this.Controls.Add(this.btn_Delete);
-            this.Controls.Add(this.btn_Edit);
-            this.Controls.Add(this.btn_Insert);
-            this.Controls.Add(this.info_dep);
-            this.Controls.Add(this.textBox1);
-            this.Controls.Add(this.pb_Logo);
-            this.Controls.Add(this.comboBox1);
-            this.Controls.Add(this.dgv_karyawan);
-            this.Controls.Add(this.lbl_KaryawanTerpilih);
-            this.Controls.Add(this.lbl_Departemen);
-            this.Controls.Add(this.lbl_NamaKaryawan);
-            this.Name = "Form1";
-            this.Text = "Form1";
-            this.Load += new System.EventHandler(this.Form1_Load);
-            ((System.ComponentModel.ISupportInitialize)(this.dgv_karyawan)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pb_Logo)).EndInit();
-            this.ResumeLayout(false);
-            this.PerformLayout();
+            AutoScaleDimensions = new SizeF(10F, 25F);
+            AutoScaleMode = AutoScaleMode.Font;
+            BackColor = Color.AliceBlue;
+            ClientSize = new Size(1333, 904);
+            Controls.Add(label2);
+            Controls.Add(label1);
+            Controls.Add(btn_Load);
+            Controls.Add(btn_Delete);
+            Controls.Add(btn_Edit);
+            Controls.Add(btn_Insert);
+            Controls.Add(info_dep);
+            Controls.Add(textBox1);
+            Controls.Add(pb_Logo);
+            Controls.Add(comboBoxJabatan);
+            Controls.Add(comboBox1);
+            Controls.Add(dgv_karyawan);
+            Controls.Add(lbl_KaryawanTerpilih);
+            Controls.Add(lbl_Jabatan);
+            Controls.Add(lbl_Departemen);
+            Controls.Add(lbl_NamaKaryawan);
+            Margin = new Padding(5, 6, 5, 6);
+            Name = "Form1";
+            Text = "Form1";
+            Load += Form1_Load;
+            ((System.ComponentModel.ISupportInitialize)dgv_karyawan).EndInit();
+            ((System.ComponentModel.ISupportInitialize)pb_Logo).EndInit();
+            ResumeLayout(false);
+            PerformLayout();
 
         }
 
@@ -215,9 +251,11 @@
 
         private System.Windows.Forms.Label lbl_NamaKaryawan;
         private System.Windows.Forms.Label lbl_Departemen;
+        private System.Windows.Forms.Label lbl_Jabatan;
         private System.Windows.Forms.Label lbl_KaryawanTerpilih;
         private System.Windows.Forms.DataGridView dgv_karyawan;
         private System.Windows.Forms.ComboBox comboBox1;
+        private System.Windows.Forms.ComboBox comboBoxJabatan;
         private System.Windows.Forms.TextBox textBox1;
         private System.Windows.Forms.Label info_dep;
         private System.Windows.Forms.Button btn_Insert;

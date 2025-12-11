@@ -1,37 +1,30 @@
 using Npgsql;
 using System;
-using System.Collections.Generic;
-using System.ComponentModel;
 using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
-using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 
 namespace testtt
 {
-    public partial class Form1 : Form //Ini Inheritance
+    public partial class Form1 : Form
     {
         private NpgsqlConnection conn;
-        private string connString = "Host=localhost;Port=5432;Username=postgres;Password=230405;Database=JunproBarbara";
+        private string connString = "Host=localhost;Port=5432;Username=postgres;Password=elisabeth17;Database=testtt";
         private string sql = "";
         private NpgsqlCommand cmd;
         private DataTable dt;
+
         public Form1()
         {
             InitializeComponent();
         }
 
-        private void EstablishConn(string connstring) //Polymorphism
+        // Polymorphism: overload method untuk koneksi
+        private void EstablishConn(string connstring)
         {
             try
             {
                 this.connString = connstring;
                 conn = new NpgsqlConnection(connString);
-
-                // Test connection
                 conn.Open();
                 MessageBox.Show("Connection to PostgreSQL is successful!", "Connection Successful", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 conn.Close();
@@ -42,14 +35,9 @@ namespace testtt
             }
         }
 
-        private void EstablishConn() //Polymorphism
+        private void EstablishConn()
         {
             MessageBox.Show("Connection to PostgreSQL is success", "Initializing Connection", MessageBoxButtons.OK, MessageBoxIcon.Information);
-        }
-
-        private void textBox1_TextChanged(object sender, EventArgs e)
-        {
-
         }
 
         private void Form1_Load(object sender, EventArgs e)
@@ -57,9 +45,11 @@ namespace testtt
             EstablishConn();
             EstablishConn(connString);
             LoadDepartemen();
+            LoadJabatan();
             LoadData();
         }
 
+        // Load Departemen ke ComboBox
         private void LoadDepartemen()
         {
             try
@@ -86,8 +76,34 @@ namespace testtt
             }
         }
 
+        // Load Jabatan ke ComboBox
+        private void LoadJabatan()
+        {
+            try
+            {
+                using (var conn = new NpgsqlConnection(connString))
+                {
+                    conn.Open();
+                    sql = "SELECT id_jabatan, nama_jabatan FROM jabatan";
+                    using (var cmd = new NpgsqlCommand(sql, conn))
+                    using (var reader = cmd.ExecuteReader())
+                    {
+                        DataTable dt = new DataTable();
+                        dt.Load(reader);
 
+                        comboBoxJabatan.DisplayMember = "nama_jabatan";
+                        comboBoxJabatan.ValueMember = "id_jabatan";
+                        comboBoxJabatan.DataSource = dt;
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error: " + ex.Message, "Gagal", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
 
+        // Load data karyawan ke DataGridView
         private void LoadData()
         {
             try
@@ -111,23 +127,41 @@ namespace testtt
             }
         }
 
-
+        // INSERT karyawan
         private void btn_Insert_Click(object sender, EventArgs e)
         {
+            if (string.IsNullOrEmpty(textBox1.Text) || comboBox1.SelectedValue == null || comboBoxJabatan.SelectedValue == null)
+            {
+                MessageBox.Show("Isi semua field sebelum insert!", "Peringatan", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+
             try
             {
-                conn = new NpgsqlConnection(connString);
-                conn.Open();
-                sql = "SELECT kr_insert(@nama, @id_dep)";
-                cmd = new NpgsqlCommand(sql, conn);
-                cmd.Parameters.AddWithValue("@nama", textBox1.Text);
-                cmd.Parameters.AddWithValue("@id_dep", comboBox1.SelectedValue.ToString());
-                if ((int)cmd.ExecuteScalar() == 1)
+                using (var conn = new NpgsqlConnection(connString))
                 {
-                    MessageBox.Show("Data berhasil ditambahkan!", "Berhasil", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                    LoadData();
+                    conn.Open();
+                    sql = "SELECT kr_insert(@nama, @id_dep, @id_jabatan)";
+                    using (var cmd = new NpgsqlCommand(sql, conn))
+                    {
+                        cmd.Parameters.AddWithValue("@nama", textBox1.Text);
+                        cmd.Parameters.AddWithValue("@id_dep", comboBox1.SelectedValue);
+                        cmd.Parameters.AddWithValue("@id_jabatan", comboBoxJabatan.SelectedValue);
+
+                        if ((int)cmd.ExecuteScalar() == 1)
+                        {
+                            MessageBox.Show("Data berhasil ditambahkan!", "Berhasil", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                            LoadData();
+                            textBox1.Clear();
+                            comboBox1.SelectedIndex = -1;
+                            comboBoxJabatan.SelectedIndex = -1;
+                        }
+                        else
+                        {
+                            MessageBox.Show("Gagal menambahkan data!", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        }
+                    }
                 }
-                conn.Close();
             }
             catch (Exception ex)
             {
@@ -135,6 +169,7 @@ namespace testtt
             }
         }
 
+        // EDIT karyawan
         private void btn_Edit_Click(object sender, EventArgs e)
         {
             if (lbl_KaryawanTerpilih.Text == "")
@@ -143,21 +178,37 @@ namespace testtt
                 return;
             }
 
+            if (string.IsNullOrEmpty(textBox1.Text) || comboBox1.SelectedValue == null || comboBoxJabatan.SelectedValue == null)
+            {
+                MessageBox.Show("Isi semua field sebelum update!", "Peringatan", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+
             try
             {
-                conn = new NpgsqlConnection(connString);
-                conn.Open();
-                sql = "SELECT kr_update(@id_karyawan, @nama, @id_dep)";
-                cmd = new NpgsqlCommand(sql, conn);
-                cmd.Parameters.AddWithValue("@id_karyawan", lbl_KaryawanTerpilih.Text);
-                cmd.Parameters.AddWithValue("@nama", textBox1.Text);
-                cmd.Parameters.AddWithValue("@id_dep", comboBox1.SelectedValue.ToString());
-                if ((int)cmd.ExecuteScalar() == 1)
+                using (var conn = new NpgsqlConnection(connString))
                 {
-                    MessageBox.Show("Data berhasil diubah!", "Berhasil", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                    LoadData();
+                    conn.Open();
+                    sql = "SELECT kr_update(@id_karyawan, @nama, @id_dep, @id_jabatan)";
+                    using (var cmd = new NpgsqlCommand(sql, conn))
+                    {
+                        cmd.Parameters.AddWithValue("@id_karyawan", lbl_KaryawanTerpilih.Text);
+                        cmd.Parameters.AddWithValue("@nama", textBox1.Text);
+                        cmd.Parameters.AddWithValue("@id_dep", comboBox1.SelectedValue);
+                        cmd.Parameters.AddWithValue("@id_jabatan", comboBoxJabatan.SelectedValue); 
+      
+
+                        if ((int)cmd.ExecuteScalar() == 1)
+                        {
+                            MessageBox.Show("Data berhasil diubah!", "Berhasil", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                            LoadData();
+                        }
+                        else
+                        {
+                            MessageBox.Show("Gagal mengubah data!", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        }
+                    }
                 }
-                conn.Close();
             }
             catch (Exception ex)
             {
@@ -165,21 +216,7 @@ namespace testtt
             }
         }
 
-        private void dvg_karyawan_CellContentClick(object sender, DataGridViewCellEventArgs e)
-        {
-            if (e.RowIndex >= 0)
-            {
-                lbl_KaryawanTerpilih.Text = dgv_karyawan.Rows[e.RowIndex].Cells["_id_karyawan"].Value.ToString();
-                textBox1.Text = dgv_karyawan.Rows[e.RowIndex].Cells["_nama"].Value.ToString();
-                comboBox1.SelectedValue = dgv_karyawan.Rows[e.RowIndex].Cells["_id_dep"].Value.ToString();
-            }
-        }
-
-        private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
-        {
-
-        }
-
+        // DELETE karyawan
         private void btn_Delete_Click(object sender, EventArgs e)
         {
             if (lbl_KaryawanTerpilih.Text == "")
@@ -200,12 +237,14 @@ namespace testtt
                         {
                             cmd.Parameters.AddWithValue("@id_karyawan", lbl_KaryawanTerpilih.Text);
 
-                            var result = (int)cmd.ExecuteScalar();
-                            if (result == 1)
+                            if ((int)cmd.ExecuteScalar() == 1)
                             {
                                 MessageBox.Show("Data berhasil dihapus!", "Berhasil", MessageBoxButtons.OK, MessageBoxIcon.Information);
-
                                 LoadData();
+                                lbl_KaryawanTerpilih.Text = "";
+                                textBox1.Clear();
+                                comboBox1.SelectedIndex = -1;
+                                comboBoxJabatan.SelectedIndex = -1;
                             }
                             else
                             {
@@ -220,10 +259,32 @@ namespace testtt
                 }
             }
         }
+        // Untuk ComboBox Departemen
+        private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            // Bisa diisi logic ketika Departemen diganti
+            // Jika belum ada logic, biarkan kosong agar tidak error
+        }
 
+        // Untuk TextBox Nama Karyawan
+        private void textBox1_TextChanged(object sender, EventArgs e)
+        {
+            // Bisa diisi logic ketika teks berubah
+            // Jika belum ada logic, biarkan kosong agar tidak error
+        }
+
+
+        // Ketika klik DataGridView, isi TextBox dan ComboBox
         private void dgv_karyawan_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
-
+            if (e.RowIndex >= 0)
+            {
+                DataGridViewRow row = dgv_karyawan.Rows[e.RowIndex];
+                lbl_KaryawanTerpilih.Text = row.Cells["_id_karyawan"].Value.ToString();
+                textBox1.Text = row.Cells["_nama"].Value.ToString();
+                comboBox1.SelectedValue = row.Cells["_id_dep"].Value;
+                comboBoxJabatan.SelectedValue = row.Cells["_id_jabatan"].Value;
+            }
         }
     }
 }

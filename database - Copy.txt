@@ -1,0 +1,103 @@
+CREATE SEQUENCE dep_id START 1;
+CREATE TABLE departemen (
+    id_dep CHARACTER VARYING PRIMARY KEY,
+    nama_dep CHARACTER VARYING(30)
+);
+
+CREATE SEQUENCE jabatan_id START 1;
+CREATE TABLE jabatan (
+    id_jabatan SERIAL DEFAULT 'K-' || NEXTVAL('users_id') PRIMARY KEY,
+    nama_jabatan VARCHAR(30),
+    salary NUMERIC(12,2)
+);
+
+CREATE SEQUENCE users_id START 1;
+CREATE TABLE karyawan (
+    id_karyawan CHARACTER(6) DEFAULT 'K-' || NEXTVAL('users_id') PRIMARY KEY,
+    nama VARCHAR(30),
+    id_dep CHARACTER VARYING REFERENCES departemen(id_dep)
+);
+
+--KaryawanSelect
+CREATE OR REPLACE FUNCTION kr_select()
+RETURNS TABLE (
+    _id_karyawan CHARACTER,
+    _nama CHARACTER VARYING,
+    _id_dep CHARACTER VARYING,
+    _nama_dep CHARACTER VARYING
+)
+LANGUAGE plpgsql AS $$
+BEGIN
+    RETURN QUERY
+    SELECT 
+        karyawan.id_karyawan, 
+        karyawan.nama, 
+        departemen.id_dep, 
+        departemen.nama_dep 
+    FROM departemen 
+    JOIN karyawan ON karyawan.id_dep = departemen.id_dep;
+END;
+$$;
+
+--KaryawanInsert
+CREATE OR REPLACE FUNCTION kr_insert(
+    _nama CHARACTER VARYING,
+    _id_dep CHARACTER VARYING
+)
+RETURNS INT AS $$
+BEGIN
+    INSERT INTO public.karyawan (nama, id_dep)
+    VALUES (_nama, _id_dep);
+    
+    RETURN 1;
+EXCEPTION
+    WHEN OTHERS THEN
+        RETURN 0;
+END;
+$$ LANGUAGE plpgsql;
+
+--KaryawanUpdate
+CREATE OR REPLACE FUNCTION kr_update(
+    _id_karyawan CHARACTER,
+    _nama CHARACTER VARYING,
+    _id_dep CHARACTER VARYING
+)
+RETURNS INT AS $$
+BEGIN
+    UPDATE karyawan
+    SET 
+        nama = _nama, 
+        id_dep = _id_dep
+    WHERE id_karyawan = _id_karyawan;
+
+    RETURN 1;
+EXCEPTION
+    WHEN OTHERS THEN
+        RETURN 0;
+END;
+$$ LANGUAGE plpgsql;
+
+--DepartemenInsert
+INSERT INTO departemen (id_dep, nama_dep) VALUES
+('HR', 'Human Resources'),
+('ENG', 'Engineer'),
+('DEV', 'Developer'),
+('PM', 'Product Manager'),
+('FIN', 'Finance');
+
+--KaryawanDelete
+CREATE OR REPLACE FUNCTION kr_delete(
+    _id_karyawan CHARACTER VARYING
+)
+RETURNS INT AS $$
+BEGIN
+    DELETE FROM public.karyawan
+    WHERE id_karyawan = _id_karyawan;
+
+    RETURN 1;
+EXCEPTION
+    WHEN OTHERS THEN
+        RETURN 0;
+END;
+$$ LANGUAGE plpgsql;
+

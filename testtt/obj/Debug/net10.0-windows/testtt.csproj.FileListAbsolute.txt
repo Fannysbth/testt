@@ -19,3 +19,4 @@ C:\Users\fanny\testtt\testtt\obj\Debug\net10.0-windows\refint\testtt.dll
 C:\Users\fanny\testtt\testtt\obj\Debug\net10.0-windows\testtt.pdb
 C:\Users\fanny\testtt\testtt\obj\Debug\net10.0-windows\testtt.genruntimeconfig.cache
 C:\Users\fanny\testtt\testtt\obj\Debug\net10.0-windows\ref\testtt.dll
+C:\Users\fanny\testtt\testtt\obj\Debug\net10.0-windows\testtt.sourcelink.json
